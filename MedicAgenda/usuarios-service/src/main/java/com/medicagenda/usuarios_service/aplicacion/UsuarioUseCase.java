@@ -36,7 +36,7 @@ public class UsuarioUseCase implements UsuarioPortIn {
     @Override
     public UsuarioDTO obtenerUsuarioPorId(Integer id) {
         Usuario usuario = usuarioPortOut.buscarPorId(id)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+                .orElseThrow(() -> new RuntimeException("Usuario no encontra"));
         return mapper.toDTO(usuario);
     }
 
