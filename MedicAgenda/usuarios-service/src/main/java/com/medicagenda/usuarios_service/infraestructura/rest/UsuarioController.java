@@ -19,7 +19,7 @@ public class UsuarioController {
     @PostMapping
     public ResponseEntity<UsuarioDTO> crear(@RequestBody UsuarioRequest request) {
         UsuarioDTO creado = usuarioService.crearUsuario(request);
-        return ResponseEntity.status(201).body(creado);
+        return ResponseEntity.status(200).body(creado);
     }
 
     @GetMapping
