@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -17,10 +19,16 @@ public class UsuarioController {
     private final UsuarioPortIn usuarioService;
 
     @PostMapping
-    public ResponseEntity<UsuarioDTO> crear(@RequestBody UsuarioRequest request) {
-        UsuarioDTO creado = usuarioService.crearUsuario(request);
-        return ResponseEntity.status(200).body(creado);
-    }
+    public ResponseEntity<Map<String, Object>> crear(@RequestBody UsuarioRequest request) {
+    UsuarioDTO creado = usuarioService.crearUsuario(request);
+
+    Map<String, Object> response = new HashMap<>();
+    response.put("mensaje", "Usuario registrado exitosamente");
+    response.put("usuario", creado);
+
+    return ResponseEntity.status(200).body(response);
+    
+}
 
     @GetMapping
     public ResponseEntity<List<UsuarioDTO>> listar() {
@@ -43,4 +51,6 @@ public class UsuarioController {
         usuarioService.eliminarUsuario(id);
         return ResponseEntity.noContent().build();
     }
+
+    
 }
