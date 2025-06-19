@@ -8,7 +8,18 @@ import lombok.Data;
 
 /**
  * DTO para exponer datos de citas médicas al cliente.
- * Contiene información de la cita sin exponer detalles sensibles.
+ * <p>
+ * Contiene información relevante de la cita sin exponer detalles sensibles.
+ * Utilizado como objeto de salida en las respuestas de la API.
+ * </p>
+ *
+ * <ul>
+ *     <li>Incluye identificador, fecha, hora, estado, observaciones, paciente y médico.</li>
+ *     <li>Documentado con anotaciones Swagger para facilitar la generación de documentación OpenAPI.</li>
+ * </ul>
+ *
+ * @author Ander
+ * @since 2025-06-18
  */
 @Data
 @Schema(description = "Objeto de salida para representar una cita médica")

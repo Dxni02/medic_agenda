@@ -5,10 +5,16 @@ import lombok.Data;
 
 /**
  * Objeto de entrada para crear o actualizar una cita médica.
+ * <p>
  * Contiene los campos necesarios que el cliente debe enviar al sistema.
- * 
  * Este DTO es utilizado en el cuerpo de las peticiones HTTP (POST y PUT).
- * 
+ * </p>
+ *
+ * <ul>
+ *     <li>Incluye fecha, hora, estado, observaciones, pacienteId y medicoId.</li>
+ *     <li>Documentado con anotaciones Swagger para facilitar la generación de documentación OpenAPI.</li>
+ * </ul>
+ *
  * @author Ander
  * @since 2025-06-18
  */

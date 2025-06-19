@@ -2,6 +2,7 @@ package com.medicagenda.citas_service.infraestructura.rest;
 
 import com.medicagenda.citas_service.dominio.model.CitaDTO;
 import com.medicagenda.citas_service.dominio.model.CitaRequest;
+import com.medicagenda.citas_service.dominio.model.CitaResponse;
 import com.medicagenda.citas_service.dominio.port.in.CitaPortIn;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -12,12 +13,22 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Controlador REST para la gestión de citas médicas.
+ * <p>
  * Expone los endpoints necesarios para registrar, consultar,
  * actualizar y eliminar citas en el sistema.
+ * </p>
+ *
+ * <ul>
+ *     <li>Permite registrar nuevas citas médicas.</li>
+ *     <li>Permite consultar, actualizar y eliminar citas existentes.</li>
+ *     <li>Incluye documentación Swagger/OpenAPI para facilitar el consumo de la API.</li>
+ * </ul>
  *
  * @author Ander
  * @since 2025-06-18
@@ -34,7 +45,7 @@ public class CitaController {
      * Registra una nueva cita médica.
      *
      * @param request datos de la nueva cita
-     * @return cita creada
+     * @return mensaje de éxito y datos de la cita creada
      */
     @Operation(summary = "Registrar una cita", description = "Registra una nueva cita médica para un paciente con un médico.")
     @ApiResponses({
@@ -42,9 +53,13 @@ public class CitaController {
         @ApiResponse(responseCode = "400", description = "Datos inválidos")
     })
     @PostMapping
-    public ResponseEntity<CitaDTO> crear(@RequestBody CitaRequest request) {
+    public ResponseEntity<Map<String, Object>> crear(@RequestBody CitaRequest request) {
         CitaDTO creada = citaService.crearCita(request);
-        return ResponseEntity.status(201).body(creada);
+        Map<String, Object> respuesta = new HashMap<>();
+        respuesta.put("mensaje", "Cita creada exitosamente");
+        respuesta.put("timestamp", java.time.LocalDateTime.now());
+        respuesta.put("cita", creada);
+        return ResponseEntity.status(201).body(respuesta);
     }
 
     /**
@@ -82,7 +97,7 @@ public class CitaController {
      *
      * @param id identificador de la cita
      * @param request nuevos datos
-     * @return cita actualizada
+     * @return mensaje de éxito
      */
     @Operation(summary = "Actualizar cita", description = "Actualiza los datos de una cita existente.")
     @ApiResponses({
@@ -90,29 +105,30 @@ public class CitaController {
         @ApiResponse(responseCode = "404", description = "Cita no encontrada")
     })
     @PutMapping("/{id}")
-    public ResponseEntity<CitaDTO> actualizar(
+    public ResponseEntity<CitaResponse> actualizar(
             @Parameter(description = "ID de la cita a actualizar", required = true)
             @PathVariable Integer id,
             @RequestBody CitaRequest request) {
-        return ResponseEntity.ok(citaService.actualizarCita(id, request));
+        citaService.actualizarCita(id, request);
+        return ResponseEntity.ok(new CitaResponse("Cita actualizada exitosamente"));
     }
 
     /**
      * Elimina una cita médica.
      *
      * @param id identificador de la cita
-     * @return sin contenido
+     * @return mensaje de éxito
      */
     @Operation(summary = "Eliminar cita", description = "Elimina una cita médica del sistema.")
     @ApiResponses({
-        @ApiResponse(responseCode = "204", description = "Cita eliminada correctamente"),
+        @ApiResponse(responseCode = "200", description = "Cita eliminada correctamente"),
         @ApiResponse(responseCode = "404", description = "Cita no encontrada")
     })
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminar(
+    public ResponseEntity<CitaResponse> eliminar(
             @Parameter(description = "ID de la cita a eliminar", required = true)
             @PathVariable Integer id) {
         citaService.eliminarCita(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(new CitaResponse("Cita eliminada exitosamente"));
     }
 }
