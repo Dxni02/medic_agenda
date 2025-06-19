@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CitasServiceApplication",
+            "request": "launch",
+            "mainClass": "com.medicagenda.citas_service.CitasServiceApplication",
+            "projectName": "citas-service"
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-UsuariosServiceApplication<usuarios-service>",
             "request": "launch",
             "cwd": "${workspaceFolder}",
