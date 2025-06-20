@@ -9,14 +9,13 @@ import lombok.Data;
  * Esta clase está mapeada a la tabla <code>cita</code> en la base de datos,
  * y es utilizada por JPA para la persistencia de las citas.
  * </p>
- * 
+ *
  * <p>
  * Contiene la información básica necesaria para agendar, actualizar o cancelar
- * una cita médica,
- * incluyendo la fecha, hora, estado, observaciones y la relación con paciente y
- * médico.
+ * una cita médica, incluyendo la fecha, hora, estado, observaciones y la relación
+ * con paciente y médico.
  * </p>
- * 
+ *
  * @author Ander
  * @since 2025-06-18
  */

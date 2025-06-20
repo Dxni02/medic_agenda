@@ -7,8 +7,20 @@ import java.util.List;
 
 /**
  * Puerto de entrada para la gestión de citas médicas.
+ * <p>
  * Define las operaciones que pueden ser realizadas desde la capa externa
- * hacia la lógica de negocio.
+ * hacia la lógica de negocio, siguiendo el principio de inversión de dependencias.
+ * Permite desacoplar la lógica de negocio de la infraestructura y facilita la
+ * implementación de pruebas y adaptadores.
+ * </p>
+ *
+ * <ul>
+ *     <li>Crea, consulta, actualiza y elimina citas médicas.</li>
+ *     <li>Expone la API interna para los casos de uso del dominio.</li>
+ * </ul>
+ *
+ * @author Ander
+ * @since 2025-06-19
  */
 public interface CitaPortIn {
 
